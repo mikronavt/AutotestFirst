@@ -8,6 +8,13 @@
     <artifactId>at-pflb-ru-testng-pageobject</artifactId>
     <version>1.0</version>
 
+    <properties>
+        <org.apache.logging.log4j.version>2.2</org.apache.logging.log4j.version>
+        <org.seleniumhq.selenium.version>3.0.0-beta4</org.seleniumhq.selenium.version>
+        <org.testng.version>6.8</org.testng.version>
+    </properties>
+
+
 
     <build>
         <plugins>
@@ -45,31 +52,42 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>3.0.0-beta4</version>
+            <version>${org.seleniumhq.selenium.version}</version>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-server</artifactId>
-            <version>3.0.0-beta4</version>
+            <version>${org.seleniumhq.selenium.version}</version>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-api</artifactId>
-            <version>3.0.0-beta4</version>
+            <version>${org.seleniumhq.selenium.version}</version>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-firefox-driver</artifactId>
-            <version>3.0.0-beta4</version>
+            <version>${org.seleniumhq.selenium.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>6.8</version>
+            <version>${org.testng.version}</version>
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${org.apache.logging.log4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${org.apache.logging.log4j.version}</version>
+        </dependency>
 
 
     </dependencies>

@@ -34,7 +34,7 @@ public class AddPersonForm {
 
     public void clickDoneButton() throws Exception{
         driver.findElement(By.xpath("(//button[@type='button'])[2]")).click();
-        TimeUnit.SECONDS.sleep(1);
+        TimeUnit.SECONDS.sleep(5);
     }
 
     public AddPersonForm fillFields(String firstName, String lastName) {

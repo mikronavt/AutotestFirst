@@ -57,7 +57,7 @@ public class AdminPage extends Page {
         WebElement el = findPerson(firstName, lastName);
         el.findElements(By.tagName("div")).get(1).click();
         driver.findElement(By.xpath("(//button[@type='button'])[4]")).click();
-        TimeUnit.SECONDS.sleep(1);
+        TimeUnit.SECONDS.sleep(5);
     }
 
 
