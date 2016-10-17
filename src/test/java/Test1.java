@@ -1,6 +1,8 @@
 import org.testng.Assert;
 import org.testng.annotations.*;
 
+import java.util.Random;
+
 /**
  * Created by User on 12.10.2016.
  */
@@ -20,8 +22,8 @@ public class Test1 {
         Assert.assertTrue(adminPage.isLoggedIn());
 
         //Допилить рандом
-        String firstName = "Vasya";
-        String lastName = "Pupkin";
+        String firstName = generateRandomString(7);
+        String lastName = generateRandomString(7);
 
         AddPersonForm addPersonForm = adminPage.clickAddPerson();
         addPersonForm = addPersonForm.fillFields(firstName, lastName);
@@ -35,6 +37,18 @@ public class Test1 {
         Assert.assertFalse(adminPage.existsPerson(firstName, lastName));
 
         adminPage.doLogout();
+    }
+
+    private String generateRandomString(int len){
+        Random random = new Random();
+        String charList = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < len; i++) {
+            int number = random.nextInt(charList.length());
+            char ch = charList.charAt(number);
+            builder.append(ch);
+        }
+        return builder.toString();
     }
 
     @AfterClass(alwaysRun = true)
