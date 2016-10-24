@@ -1,3 +1,5 @@
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -11,18 +13,31 @@ public class AddPersonForm {
     String lastName;
     String username;
     WebDriver driver;
+    private Logger logger;
 
+    public static AddPersonForm openAddPersonForm(){
+        AddPersonForm addPersonForm = new AddPersonForm();
+        addPersonForm.driver = Context.getContext().getDriver();
+        addPersonForm.logger = LogManager.getLogger("Logger " + addPersonForm.getClass());
+        addPersonForm.logger.debug("Opened add person form");
+        return addPersonForm;
+
+    }
 
     public void setFirstName(String firstName){
+        logger.debug("Setting first name " + firstName);
         this.firstName = firstName;
         driver.findElement(By.id("person-first-name")).clear();
         driver.findElement(By.id("person-first-name")).sendKeys(firstName);
+        logger.debug("First name set");
     }
 
     public void setLastName(String lastName){
+        logger.debug("Setting last name " + lastName);
         this.lastName = lastName;
         driver.findElement(By.id("person-last-name")).clear();
         driver.findElement(By.id("person-last-name")).sendKeys(lastName);
+        logger.debug("Last name set");
     }
 
     public void setUsername(String username){
@@ -33,6 +48,7 @@ public class AddPersonForm {
     }
 
     public void clickDoneButton() throws Exception{
+        logger.debug("Clicking done button");
         driver.findElement(By.xpath("(//button[@type='button'])[2]")).click();
         TimeUnit.SECONDS.sleep(5);
     }

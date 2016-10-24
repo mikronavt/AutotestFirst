@@ -14,7 +14,7 @@ public class Test1 {
 
     @BeforeClass(alwaysRun = true)
     public void setUp()throws Exception{
-        logger = LogManager.getLogger("Test logger");
+        logger = LogManager.getLogger("Logger " + this.getClass());
         logger.info("Setting up before test");
         Context.initInstance();
     }
@@ -24,39 +24,27 @@ public class Test1 {
         logger.info("Start main test");
 
         String login = "admin";
-        logger.debug("Setting login: " + login);
         String pass = "admin";
-        logger.debug("Setting pass: " + pass);
 
-        logger.debug("Opening login page");
         LoginPage loginPage = LoginPage.openLoginPage();
 
-        logger.debug("Login into system");
         AdminPage adminPage = loginPage.doLogin(login, pass);
         Assert.assertTrue(adminPage.isLoggedIn());
-        logger.debug("Login done");
 
         String firstName = generateRandomString(7);
         String lastName = generateRandomString(7);
-        logger.debug("First name: " + firstName);
-        logger.debug("Last name: " + lastName);
 
-        logger.debug("Add new person");
         AddPersonForm addPersonForm = adminPage.clickAddPerson();
         addPersonForm = addPersonForm.fillFields(firstName, lastName);
         addPersonForm.clickDoneButton();
 
         Assert.assertTrue(adminPage.existsPerson(firstName, lastName));
-        logger.debug("Person exists");
 
-        logger.debug("Delete person");
         adminPage.doDelete(firstName, lastName);
 
 
         Assert.assertFalse(adminPage.existsPerson(firstName, lastName));
-        logger.debug("Delete successful");
 
-        logger.debug("Logout");
         adminPage.doLogout();
 
         logger.info("Main test done");
@@ -76,7 +64,6 @@ public class Test1 {
 
     @AfterClass(alwaysRun = true)
     public void tearDown(){
-        logger.debug("Tearing down");
         Context.getContext().close();
         logger.info("Work finished");
     }
