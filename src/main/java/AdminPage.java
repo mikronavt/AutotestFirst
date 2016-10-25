@@ -82,6 +82,15 @@ public class AdminPage extends Page {
         logger.debug("Person deleted");
     }
 
+    public void addPerson(String firstName, String lastName) throws Exception{
+        AddPersonForm addPersonForm = this.clickAddPerson();
+        addPersonForm = addPersonForm.fillFields(firstName, lastName);
+        addPersonForm.clickDoneButton();
+
+        //todo возращать id и дальше все делать по id
+    }
+    
+
 
     public void setDriver(WebDriver driver){
         this.driver = driver;

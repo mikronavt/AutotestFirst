@@ -34,9 +34,7 @@ public class Test1 {
         String firstName = generateRandomString(7);
         String lastName = generateRandomString(7);
 
-        AddPersonForm addPersonForm = adminPage.clickAddPerson();
-        addPersonForm = addPersonForm.fillFields(firstName, lastName);
-        addPersonForm.clickDoneButton();
+        adminPage.addPerson(firstName, lastName);
 
         Assert.assertTrue(adminPage.existsPerson(firstName, lastName));
 
