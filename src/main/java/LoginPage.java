@@ -18,6 +18,12 @@ public class LoginPage extends Page {
     @FindBy(id = "login-username")
     private WebElement usernameField;
 
+    @FindBy(id = "login-password")
+    private WebElement passwordField;
+
+    @FindBy(id = "login-button")
+    private WebElement loginButton;
+
 
     public static LoginPage openLoginPage(){
         LoginPage loginPage = new LoginPage();
@@ -39,13 +45,11 @@ public class LoginPage extends Page {
         logger.debug("Logging in with login " + login + "and pass " + pass);
 
 
-        //driver.findElement(By.id("login-username")).clear();
-        //driver.findElement(By.id("login-username")).sendKeys(login);
         usernameField.clear();
         usernameField.sendKeys(login);
-        driver.findElement(By.id("login-password")).clear();
-        driver.findElement(By.id("login-password")).sendKeys(pass);
-        driver.findElement(By.id("login-button")).click();
+        passwordField.clear();
+        passwordField.sendKeys(pass);
+        loginButton.click();
 
         AdminPage adminPage = AdminPage.openAdminPage();
 
