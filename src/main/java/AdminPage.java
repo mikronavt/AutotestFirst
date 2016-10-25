@@ -3,6 +3,8 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 import java.util.concurrent.TimeUnit;
 
@@ -13,10 +15,19 @@ public class AdminPage extends Page {
     private WebDriver driver;
     private Logger logger;
 
+    @FindBy(id = "add-person")
+    private WebElement addPersonButton;
+
+    @FindBy(css = "#logout > span")
+    private WebElement logoutButton;
+
     public static AdminPage openAdminPage(){
         AdminPage adminPage = new AdminPage();
         adminPage.driver = Context.getContext().getDriver();
         adminPage.logger = LogManager.getLogger("Logger " + adminPage.getClass());
+        PageFactory.initElements(adminPage.driver, adminPage);
+
+
         adminPage.logger.debug("Opened admin page");
 
         return adminPage;
@@ -25,7 +36,7 @@ public class AdminPage extends Page {
     public AddPersonForm clickAddPerson(){
         logger.debug("Clicking add person");
 
-        driver.findElement(By.id("add-person")).click();
+        addPersonButton.click();
         AddPersonForm addPersonForm = AddPersonForm.openAddPersonForm();
 
         logger.debug("Click add person done");
@@ -36,7 +47,7 @@ public class AdminPage extends Page {
 
     public void doLogout(){
         logger.debug("Logging out");
-        driver.findElement(By.cssSelector("#logout > span")).click();
+        logoutButton.click();
         logger.debug("Logout done");
     }
 
