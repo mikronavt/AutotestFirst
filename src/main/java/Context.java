@@ -24,13 +24,13 @@ public class Context {
     public static void initInstance() throws Exception{
         context = new Context();
         context.logger = LogManager.getLogger("Logger " + context.getClass());
-        context.logger.debug("Init context + params");//todo add params
-        System.setProperty("webdriver.gecko.driver","C:\\tests\\geckodriver.exe");
+        context.logger.debug("Init context. Driver location: " + Constants.driverLocation + "; timeout: " + Constants.timeout);
+        System.setProperty("webdriver.gecko.driver",Constants.driverLocation);
 
         driver = new FirefoxDriver();
         baseUrl = "http://at.pflb.ru/matrixboard2/";
         driver.get(baseUrl);
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Constants.timeout, TimeUnit.SECONDS);
         context.logger.debug("Context initiated");
     }
 
