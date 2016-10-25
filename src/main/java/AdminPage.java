@@ -21,6 +21,11 @@ public class AdminPage extends Page {
     @FindBy(css = "#logout > span")
     private WebElement logoutButton;
 
+    @FindBy(css = "span")
+    private WebElement spanWithUsername;
+
+
+
     public static AdminPage openAdminPage(){
         AdminPage adminPage = new AdminPage();
         adminPage.driver = Context.getContext().getDriver();
@@ -54,7 +59,7 @@ public class AdminPage extends Page {
     public boolean isLoggedIn(){
         logger.debug("Checking if is logged in");
         try {
-            return driver.findElement(By.cssSelector("span")).getText().contains("admin");
+            return spanWithUsername.getText().contains("admin");
         } catch (Exception e){
             return false;
         }
@@ -65,7 +70,7 @@ public class AdminPage extends Page {
 
     public WebElement findPerson(String firstName, String lastName) {
         logger.debug("Finding person " + firstName + " " + lastName);
-
+        //todo переделываем в аннотации
         for (WebElement el: driver.findElements(By.cssSelector("div.name"))){
             if(el.getText().contains(firstName) && el.getText().contains(lastName)){
                 return el;
@@ -86,6 +91,7 @@ public class AdminPage extends Page {
 
     public void doDelete(String firstName, String lastName) throws Exception{
         logger.debug("Deleting person " + firstName + " " + lastName);
+        //todo переделываем все
         WebElement el = findPerson(firstName, lastName);
         el.findElements(By.tagName("div")).get(1).click();
         driver.findElement(By.xpath("(//button[@type='button'])[4]")).click();
