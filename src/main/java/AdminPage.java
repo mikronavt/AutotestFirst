@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -23,6 +24,9 @@ public class AdminPage extends Page {
 
     @FindBy(css = "span")
     private WebElement spanWithUsername;
+
+    @FindBy(css = "div.name")
+    private List<WebElement> elementsWithNames;
 
 
 
@@ -70,8 +74,7 @@ public class AdminPage extends Page {
 
     public WebElement findPerson(String firstName, String lastName) {
         logger.debug("Finding person " + firstName + " " + lastName);
-        //todo переделываем в аннотации
-        for (WebElement el: driver.findElements(By.cssSelector("div.name"))){
+        for (WebElement el: elementsWithNames){
             if(el.getText().contains(firstName) && el.getText().contains(lastName)){
                 return el;
             }
