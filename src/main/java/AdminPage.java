@@ -28,6 +28,9 @@ public class AdminPage extends Page {
     @FindBy(css = "div.name")
     private List<WebElement> elementsWithNames;
 
+    @FindBy(xpath = "(//button[@type='button'])[4]")
+    private WebElement confimDeletionButton;
+
 
 
     public static AdminPage openAdminPage(){
@@ -94,10 +97,9 @@ public class AdminPage extends Page {
 
     public void doDelete(String firstName, String lastName) throws Exception{
         logger.debug("Deleting person " + firstName + " " + lastName);
-        //todo переделываем все
         WebElement el = findPerson(firstName, lastName);
-        el.findElements(By.tagName("div")).get(1).click();
-        driver.findElement(By.xpath("(//button[@type='button'])[4]")).click();
+        el.findElement(By.cssSelector("[title='Удалить человека']")).click();
+        confimDeletionButton.click();
         TimeUnit.SECONDS.sleep(5);
         logger.debug("Person deleted");
     }
@@ -107,7 +109,6 @@ public class AdminPage extends Page {
         addPersonForm = addPersonForm.fillFields(firstName, lastName);
         addPersonForm.clickDoneButton();
 
-        //todo возращать id и дальше все делать по id
     }
     
 
