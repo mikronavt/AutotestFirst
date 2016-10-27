@@ -1,10 +1,14 @@
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -15,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 public class AdminPage extends Page {
     private WebDriver driver;
     private Logger logger;
+    private Wait<WebDriver> wait;
 
     @FindBy(id = "add-person")
     private WebElement addPersonButton;
@@ -38,7 +43,7 @@ public class AdminPage extends Page {
         adminPage.driver = Context.getContext().getDriver();
         adminPage.logger = LogManager.getLogger("Logger " + adminPage.getClass());
         PageFactory.initElements(adminPage.driver, adminPage);
-
+        adminPage.wait = new WebDriverWait(adminPage.driver, 5, 1000);
 
         adminPage.logger.debug("Opened admin page");
 
@@ -100,7 +105,9 @@ public class AdminPage extends Page {
         WebElement el = findPerson(firstName, lastName);
         el.findElement(By.cssSelector("[title='Удалить человека']")).click();
         confimDeletionButton.click();
-        TimeUnit.SECONDS.sleep(5);
+        try {
+            wait.until(ExpectedConditions.not(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//*[contains(., '" + firstName + "')]"))));
+        } catch(TimeoutException e){}
         logger.debug("Person deleted");
     }
 
@@ -108,6 +115,7 @@ public class AdminPage extends Page {
         AddPersonForm addPersonForm = this.clickAddPerson();
         addPersonForm = addPersonForm.fillFields(firstName, lastName);
         addPersonForm.clickDoneButton();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(., '" + firstName + "')]")));
 
     }
     

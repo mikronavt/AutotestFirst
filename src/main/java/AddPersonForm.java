@@ -64,7 +64,6 @@ public class AddPersonForm {
     public void clickDoneButton() throws Exception{
         logger.debug("Clicking done button");
         doneButton.click();
-        TimeUnit.SECONDS.sleep(5);
     }
 
     public AddPersonForm fillFields(String firstName, String lastName) {
