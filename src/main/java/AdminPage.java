@@ -11,7 +11,6 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by User on 12.10.2016.
@@ -33,15 +32,18 @@ public class AdminPage extends Page {
     @FindBy(css = "div.name")
     private List<WebElement> elementsWithNames;
 
-    @FindBy(xpath = "(//button[@type='button'])[4]")
+
+    @FindBy(xpath = "//button[@type='button' and contains(., 'Да')]")
     private WebElement confimDeletionButton;
 
 
 
     public static AdminPage openAdminPage(){
         AdminPage adminPage = new AdminPage();
-        adminPage.driver = Context.getContext().getDriver();
         adminPage.logger = LogManager.getLogger("Logger " + adminPage.getClass());
+        adminPage.logger.debug("Opening admin page");
+
+        adminPage.driver = Context.getContext().getDriver();
         PageFactory.initElements(adminPage.driver, adminPage);
         adminPage.wait = new WebDriverWait(adminPage.driver, 5, 1000);
 
@@ -80,7 +82,7 @@ public class AdminPage extends Page {
     }
 
 
-    public WebElement findPerson(String firstName, String lastName) {
+    private WebElement findPerson(String firstName, String lastName) {
         logger.debug("Finding person " + firstName + " " + lastName);
         for (WebElement el: elementsWithNames){
             if(el.getText().contains(firstName) && el.getText().contains(lastName)){
@@ -112,20 +114,17 @@ public class AdminPage extends Page {
     }
 
     public void addPerson(String firstName, String lastName) throws Exception{
+        logger.debug("Adding person " + firstName + " " + lastName);
+
         AddPersonForm addPersonForm = this.clickAddPerson();
         addPersonForm = addPersonForm.fillFields(firstName, lastName);
         addPersonForm.clickDoneButton();
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(., '" + firstName + "')]")));
 
+        logger.debug("Person added");
+
     }
     
 
 
-    public void setDriver(WebDriver driver){
-        this.driver = driver;
-    }
-
-    public WebDriver getDriver(){
-        return driver;
-    }
 }

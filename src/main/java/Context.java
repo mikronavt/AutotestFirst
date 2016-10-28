@@ -10,10 +10,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class Context {
     private static Context context;
-
     private static WebDriver driver;
     private static String baseUrl;
-
     private Logger logger;
 
 
@@ -28,7 +26,7 @@ public class Context {
         System.setProperty("webdriver.gecko.driver",Constants.driverLocation);
 
         driver = new FirefoxDriver();
-        baseUrl = "http://at.pflb.ru/matrixboard2/";
+        baseUrl = Constants.webUrl;
         driver.get(baseUrl);
         driver.manage().timeouts().implicitlyWait(Constants.timeout, TimeUnit.SECONDS);
         context.logger.debug("Context initiated");

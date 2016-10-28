@@ -12,10 +12,10 @@ import java.util.concurrent.TimeUnit;
  * Created by User on 12.10.2016.
  */
 public class AddPersonForm {
-    String firstName;
-    String lastName;
-    String username;
-    WebDriver driver;
+    private String firstName;
+    private String lastName;
+    private String username;
+    private WebDriver driver;
     private Logger logger;
 
     @FindBy(id = "person-first-name")
@@ -24,7 +24,7 @@ public class AddPersonForm {
     @FindBy(id = "person-last-name")
     private WebElement lastNameField;
 
-    @FindBy(xpath = "(//button[@type='button'])[2]")
+    @FindBy(xpath = "//button[@type='button' and contains(., 'Готово')]")
     private WebElement doneButton;
 
     public static AddPersonForm openAddPersonForm(){
@@ -72,7 +72,4 @@ public class AddPersonForm {
         return this;
     }
 
-    public void setDriver(WebDriver driver){
-        this.driver = driver;
-    }
 }
