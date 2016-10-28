@@ -35,12 +35,9 @@ public class Test1 {
         String lastName = generateRandomString(7);
 
         adminPage.addPerson(firstName, lastName);
-
         Assert.assertTrue(adminPage.existsPerson(firstName, lastName));
 
         adminPage.doDelete(firstName, lastName);
-
-
         Assert.assertFalse(adminPage.existsPerson(firstName, lastName));
 
         adminPage.doLogout();
